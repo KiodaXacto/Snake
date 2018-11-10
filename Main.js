@@ -18,13 +18,7 @@ canvas.addEventListener('mousemove',function(e){
 })
 
 function drowAll(e){
-	ctx.clearRect(-canvas.height,canvas.height,canvas.width,-canvas.width);
-
-
-
-
 	snake.updatePosition(e);
-	drowArrow(snake.v.x * 20	, snake.v.y*20);
 }
 
 Number.prototype.map = function (in_min, in_max, out_min, out_max) {
@@ -34,6 +28,7 @@ Number.prototype.map = function (in_min, in_max, out_min, out_max) {
 function drowArrow(tox, toy,b,f){
     var headlen = 10;   // length of head in pixels
     var angle = Math.atan2(toy,tox);
+    this.ctx.beginPath();
     ctx.strokeStyle =b?b:'#fff';
 	ctx.fillStyle = f?f:'#fff';
     ctx.moveTo(0, 0);
@@ -43,3 +38,11 @@ function drowArrow(tox, toy,b,f){
     ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
     ctx.stroke();
 }
+
+function update(){
+	ctx.clearRect(-canvas.height,canvas.height,canvas.width,-canvas.width);
+	snake.drowCircle();
+	//drowArrow(snake.v.x * 20, snake.v.y*20);
+}
+
+setInterval(update,10);
